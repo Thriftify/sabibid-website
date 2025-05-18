@@ -1,5 +1,4 @@
 import Layout from "@/components/layout/layout";
-import CategoriesSection from "@/components/sections/CategoriesSection";
 import FeaturesSection from "@/components/sections/FeaturesSection";
 import HeroSection from "@/components/sections/HeroSection";
 import HowItWorksSection from "@/components/sections/HowItWorksSection";
