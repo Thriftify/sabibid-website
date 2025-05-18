@@ -39,6 +39,7 @@ const NewsletterSection: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
     if (!isValid) return;
 
     try {
@@ -57,6 +58,8 @@ const NewsletterSection: React.FC = () => {
 
       if (result.status === "success") {
         setIsSubmitted(true);
+        setIsLoading(false);
+        setEmail("");
       } else {
         console.error("Failed to submit:", result.error);
         alert("Something went wrong. Try again.");
