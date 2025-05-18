@@ -7,6 +7,7 @@ const NewsletterSection: React.FC = () => {
   const [email, setEmail] = useState("");
   const [isValid, setIsValid] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [typingTimeout, setTypingTimeout] = useState<NodeJS.Timeout | null>(
     null
@@ -36,10 +37,33 @@ const NewsletterSection: React.FC = () => {
     };
   }, [email]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (isValid) {
-      setIsSubmitted(true);
+    if (!isValid) return;
+
+    try {
+      const response = await fetch(
+        "https://script.google.com/macros/s/AKfycbwnN2JK44sYGpxxrKhrmcQnrOjT4JhaTNQknfCBVbyH77sFGccNRAGHSuaiN74U9pc6/exec",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email }),
+        }
+      );
+
+      const result = await response.json();
+
+      if (result.status === "success") {
+        setIsSubmitted(true);
+      } else {
+        console.error("Failed to submit:", result.error);
+        alert("Something went wrong. Try again.");
+      }
+    } catch (error) {
+      console.error("Error submitting email:", error);
+      alert("Error submitting your email. Please try again.");
     }
   };
 
@@ -82,8 +106,10 @@ const NewsletterSection: React.FC = () => {
                 className="bg-white text-[#005BB5] p-4 rounded-lg shadow-lg text-center"
               >
                 <p className="font-bold">{email}</p>
-                <p className="text-sm mt-1">You've sabi this thing! ✨</p>
-                <p className="text-xs mt-2">You're on our waitlist</p>
+                <p className="text-sm mt-1">You be sabi person! ✨</p>
+                <p className="text-xs mt-2">
+                  Congrats🎊 You&apos;re on our waitlist.
+                </p>
               </motion.div>
             ) : (
               <form onSubmit={handleSubmit} className="relative">
@@ -94,19 +120,48 @@ const NewsletterSection: React.FC = () => {
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Your email address"
                     className="flex-grow px-4 py-3 text-sm sm:text-base rounded-lg text-gray-800 border border-gray-300 focus:border-[#005BB5] focus:ring-2 focus:ring-[#005BB5] focus:outline-none transition-all duration-300"
+                    disabled={isLoading}
                   />
                   {isValid && (
                     <Button
+                      type="submit"
                       variant="secondary"
                       className="w-full sm:w-auto px-6 sm:px-8 py-3 rounded-lg hover:scale-105 active:scale-95 transition-transform duration-200"
+                      disabled={isLoading}
                     >
-                      Subscribe
+                      {isLoading ? (
+                        <span className="flex items-center justify-center">
+                          <svg
+                            className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                          >
+                            <circle
+                              className="opacity-25"
+                              cx="12"
+                              cy="12"
+                              r="10"
+                              stroke="currentColor"
+                              strokeWidth="4"
+                            ></circle>
+                            <path
+                              className="opacity-75"
+                              fill="currentColor"
+                              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                            ></path>
+                          </svg>
+                          Processing...
+                        </span>
+                      ) : (
+                        "Subscribe"
+                      )}
                     </Button>
                   )}
                 </div>
 
                 {/* Validation Message */}
-                {email && (
+                {email && !isLoading && (
                   <div
                     className={`mt-2 text-xs sm:text-sm transition-all duration-300 ease-in-out ${
                       isTyping
