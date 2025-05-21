@@ -37,36 +37,48 @@ const NewsletterSection: React.FC = () => {
     };
   }, [email]);
 
+  useEffect(() => {
+    if (isSubmitted) {
+      const timeout = setTimeout(() => {
+        setIsSubmitted(false);
+      }, 5000);
+
+      return () => clearTimeout(timeout);
+    }
+  }, [isSubmitted]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    if (!isValid) return;
+
+    if (!isValid) {
+      setIsLoading(false);
+      return;
+    }
 
     try {
-      const response = await fetch(
-        "https://script.google.com/macros/s/AKfycbwnN2JK44sYGpxxrKhrmcQnrOjT4JhaTNQknfCBVbyH77sFGccNRAGHSuaiN74U9pc6/exec",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email }),
-        }
-      );
+      const response = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
 
       const result = await response.json();
 
       if (result.status === "success") {
         setIsSubmitted(true);
-        setIsLoading(false);
         setEmail("");
       } else {
         console.error("Failed to submit:", result.error);
-        alert("Something went wrong. Try again.");
+        alert("Something went wrong. Please try again.");
       }
     } catch (error) {
       console.error("Error submitting email:", error);
       alert("Error submitting your email. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
