@@ -22,10 +22,10 @@ const Header: React.FC = () => {
           </Link>
         </div>
         <div className="flex space-x-4">
-          <Button>Explore Bids</Button>
-          <Button variant="secondary" className="hidden sm:block">
+          <Button>Join our waitlist</Button>
+          {/* <Button variant="secondary" className="hidden sm:block">
             Sign in
-          </Button>
+          </Button> */}
         </div>
       </div>
     </header>
