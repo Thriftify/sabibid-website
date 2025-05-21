@@ -65,14 +65,14 @@ const HeroSection: React.FC = () => {
               viewport={{ once: true }}
             >
               <Button className="w-full py-3 rounded-lg px-8">
-                Explore Bids
+                Join our waitlist
               </Button>
               {!isMobile && (
                 <Button
                   variant="secondary"
                   className="w-full py-3 rounded-lg px-8"
                 >
-                  Place Bid
+                  Why choos us?
                 </Button>
               )}
             </motion.div>
