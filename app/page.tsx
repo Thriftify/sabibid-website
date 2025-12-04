@@ -1,30 +1,55 @@
-import Layout from "@/components/layout/layout";
-import FeaturesSection from "@/components/sections/FeaturesSection";
-import HeroSection from "@/components/sections/HeroSection";
-import HowItWorksSection from "@/components/sections/HowItWorksSection";
-import NewsletterSection from "@/components/sections/NewsletterSection";
+import NewHeroSection from "@/components/sections/NewHeroSection";
+import FeaturedAuctions from "@/components/sections/FeaturedAuctions";
+import TrustSection from "@/components/sections/TrustSection";
+import NewHowItWorksSection from "@/components/sections/NewHowItWorksSection";
+import TestimonialsSection from "@/components/sections/TestimonialsSection";
+import NewFooter from "@/components/layout/NewFooter";
 import type { NextPage } from "next";
-import Head from "next/head";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "SabiBid - Authentic Auctions for Passionate Collectors",
+  description:
+    "Join 50,000+ collectors bidding on verified sneakers, art, NFTs, cars, and rare collectibles. Real-time bidding, transparent fees, 100% authenticity guaranteed.",
+  keywords: [
+    "auction",
+    "sneakers",
+    "art",
+    "NFT",
+    "collectibles",
+    "verified sellers",
+    "authentic",
+    "bidding",
+  ],
+  openGraph: {
+    title: "SabiBid - Authentic Auctions for Passionate Collectors",
+    description:
+      "Join 50,000+ collectors bidding on verified sneakers, art, NFTs, cars, and rare collectibles.",
+    type: "website",
+  },
+};
 
 const Home: NextPage = () => {
   return (
-    <>
-      <Head>
-        <title>SabiBid - Auction Marketplace</title>
-        <meta
-          name="description"
-          content="Turn your extra items into opportunities"
-        />
-      </Head>
+    <main className="min-h-screen">
+      {/* Hero Section with Trust Badges, Search, and Featured Carousel */}
+      <NewHeroSection />
 
-      <Layout>
-        <HeroSection />
-        <FeaturesSection />
-        <HowItWorksSection />
-        {/* <CategoriesSection /> */}
-        <NewsletterSection />
-      </Layout>
-    </>
+      {/* Featured Auctions Grid with Filters, Countdown Timers, and Live Bids */}
+      <FeaturedAuctions />
+
+      {/* Trust Section - Why Collectors Trust SabiBid */}
+      <TrustSection />
+
+      {/* How It Works - 4 Step Process */}
+      <NewHowItWorksSection />
+
+      {/* Testimonials Carousel */}
+      <TestimonialsSection />
+
+      {/* Footer with Newsletter, Links, and Trust Badges */}
+      <NewFooter />
+    </main>
   );
 };
 

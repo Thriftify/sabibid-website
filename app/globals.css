@@ -3,9 +3,10 @@
 @tailwind utilities;
 
 body {
-  @apply bg-gray-50;
+  @apply bg-white;
 }
 
+/* Fade In Animation */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -19,4 +20,217 @@ body {
 
 .animate-fade-in {
   animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Pulse Animation for Urgent Items */
+@keyframes urgentPulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.animate-urgent-pulse {
+  animation: urgentPulse 1s ease-in-out infinite;
+}
+
+/* Slide Up Animation */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slideUp 0.6s ease-out forwards;
+}
+
+/* Bid Flash Animation */
+@keyframes bidFlash {
+  0% {
+    background-color: rgba(34, 197, 94, 0.3);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+.animate-bid-flash {
+  animation: bidFlash 1s ease-out;
+}
+
+/* Countdown Urgency */
+@keyframes countdownUrgent {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.animate-countdown-urgent {
+  animation: countdownUrgent 0.5s ease-in-out infinite;
+}
+
+/* Live Indicator Pulse */
+@keyframes livePulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(34, 197, 94, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+  }
+}
+
+.animate-live-pulse {
+  animation: livePulse 2s infinite;
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Line Clamp Utility */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Gradient Text */
+.gradient-text {
+  background: linear-gradient(135deg, #ff7043 0%, #005bb5 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Card Hover Effect */
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Button Active State */
+.btn-active:active {
+  transform: scale(0.98);
+}
+
+/* Glass Effect */
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Trust Badge Shine Effect */
+@keyframes shine {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.trust-badge-shine {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  background-size: 200% 100%;
+  animation: shine 3s infinite;
+}
+
+/* Big soft top-right bloom (the warm white-yellow glow) */
+.bloom-top {
+  position: absolute;
+  top: -30%;
+  right: -20%;
+  width: 1200px;
+  height: 1200px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 230, 180, 0.7) 0%,
+    transparent 60%
+  );
+  filter: blur(120px);
+  opacity: 0.8;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Bottom-left purple-pink bloom */
+.bloom-bottom {
+  position: absolute;
+  bottom: 10%;
+  left: -30%;
+  width: 1400px;
+  height: 1400px;
+  background: radial-gradient(
+    circle,
+    rgba(200, 100, 255, 0.6) 0%,
+    transparent 65%
+  );
+  filter: blur(140px);
+  opacity: 0.7;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Optional extra small accent bloom */
+.bloom-accent {
+  position: absolute;
+  top: 20%;
+  left: 10%;
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(
+    circle,
+    rgba(100, 200, 255, 0.4) 0%,
+    transparent 70%
+  );
+  filter: blur(100px);
+  z-index: 2;
+  pointer-events: none;
 }
